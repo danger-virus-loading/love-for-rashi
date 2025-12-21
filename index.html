@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Rashi ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --pink: #ff5fa2;
+  --glass: rgba(255,255,255,0.78);
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ffe4ef, #ffc1dc);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Container */
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card */
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  padding: 35px;
+  border-radius: 30px;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(255,95,162,0.35);
+  animation: cardReveal 1.1s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Letter opening cover */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #ff8cc7, #ffd1e8);
+  animation: coverReveal 1s ease forwards;
+}
+
+@keyframes coverReveal {
+  to { transform: translateY(-110%); }
+}
+
+@keyframes cardReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Headings */
+.card h1 {
+  font-family: 'Dancing Script', cursive;
+  color: var(--pink);
+  font-size: 2.4rem;
+  margin-bottom: 15px;
+}
+
+/* Glow for name */
+.glow {
+  font-family: 'Dancing Script', cursive;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 6px #ff5fa2; }
+  50% { text-shadow: 0 0 18px #ff8cc7; }
+  100% { text-shadow: 0 0 6px #ff5fa2; }
+}
+
+/* Typed text */
+.typed {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  min-height: 90px;
+  line-height: 1.6;
+}
+
+/* Button (no click animation) */
+.btn {
+  margin-top: 25px;
+  background: linear-gradient(135deg, #ff5fa2, #ff8cc7);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(255,95,162,0.45);
+  transition: box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+.btn:hover {
+  box-shadow: 0 18px 45px rgba(255,95,162,0.7);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Parallax hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  opacity: 0.6;
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  top: -10px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- Card 1 -->
+  <div class="card" id="card1">
+    <h1>Hey <span class="glow">Rashi ❤️</span></h1>
+    <div class="typed" id="text1"></div>
+    <button class="btn" onclick="nextCard(1)">Tap Me ❤️</button>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="card hidden" id="card2">
+    <h1>You Mean So Much 🌸</h1>
+    <div class="typed" id="text2"></div>
+    <button class="btn" onclick="nextCard(2)">One More 💖</button>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="card hidden" id="card3">
+    <h1>My Heart 💗</h1>
+    <div class="typed" id="text3"></div>
+    <button class="btn" onclick="nextCard(3)">Final Message ✨</button>
+  </div>
+
+  <!-- Final Card -->
+  <div class="card hidden" id="card4">
+    <h1 class="glow">I Love You, Rashi ❤️</h1>
+    <div class="typed" id="text4"></div>
+  </div>
+
+</div>
+
+<script>
+const messages = {
+  text1: "I made something special just for you, because you are very special to me.",
+  text2: "From the moment you came into my life, everything became brighter. Your smile makes me happy.",
+  text3: "No matter where life takes us, my heart will always choose you, today, tomorrow, and always.",
+  text4: "I love you, Rashi ❤️ More than words can ever explain."
+};
+
+function typeText(id, text, speed = 45) {
+  let i = 0;
+  const el = document.getElementById(id);
+  el.innerHTML = "";
+  const interval = setInterval(() => {
+    el.innerHTML += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, speed);
+}
+
+typeText("text1", messages.text1);
+
+function nextCard(step) {
+  document.getElementById("card" + step).classList.add("hidden");
+  const next = document.getElementById("card" + (step + 1));
+  next.classList.remove("hidden");
+  typeText("text" + (step + 1), messages["text" + (step + 1)]);
+  if (step === 3) startConfetti();
+}
+
+/* Parallax hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 12 + 16 + "px";
+  heart.style.animationDuration = Math.random() * 4 + 4 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}, 600);
+
+/* Confetti */
+function startConfetti() {
+  for (let i = 0; i < 140; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = Math.random() * 3 + 2 + "s";
+    c.style.background = ["#ff5fa2", "#ff8cc7", "#ffd1e8"][Math.floor(Math.random() * 3)];
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+</script>
+
+</body>
+</html>
