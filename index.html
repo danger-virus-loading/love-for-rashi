@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Rashi ❤️</title>
+<title>For You ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -13,7 +13,6 @@
   --glass: rgba(255,255,255,0.78);
 }
 
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +26,6 @@ body {
   overflow: hidden;
 }
 
-/* Container */
 .container {
   height: 100vh;
   display: flex;
@@ -35,7 +33,6 @@ body {
   align-items: center;
   padding: 20px;
   position: relative;
-  z-index: 2;
 }
 
 /* Card */
@@ -52,7 +49,6 @@ body {
   overflow: hidden;
 }
 
-/* Letter opening cover */
 .card::before {
   content: "";
   position: absolute;
@@ -66,25 +62,17 @@ body {
 }
 
 @keyframes cardReveal {
-  from {
-    opacity: 0;
-    transform: scale(0.88) translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  from { opacity: 0; transform: scale(0.9) translateY(40px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Headings */
 .card h1 {
   font-family: 'Dancing Script', cursive;
   color: var(--pink);
-  font-size: 2.4rem;
+  font-size: 2.3rem;
   margin-bottom: 15px;
 }
 
-/* Glow for name */
 .glow {
   font-family: 'Dancing Script', cursive;
   animation: glowPulse 3s ease-in-out infinite;
@@ -96,16 +84,14 @@ body {
   100% { text-shadow: 0 0 6px #ff5fa2; }
 }
 
-/* Typed text */
 .typed {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: #333;
   min-height: 90px;
   line-height: 1.6;
 }
 
-/* Button (no click animation) */
 .btn {
   margin-top: 25px;
   background: linear-gradient(135deg, #ff5fa2, #ff8cc7);
@@ -117,22 +103,26 @@ body {
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 12px 30px rgba(255,95,162,0.45);
-  transition: box-shadow 0.25s ease, transform 0.15s ease;
-}
-
-.btn:hover {
-  box-shadow: 0 18px 45px rgba(255,95,162,0.7);
-}
-
-.btn:active {
-  transform: scale(0.97);
 }
 
 .hidden {
   display: none;
 }
 
-/* Parallax hearts */
+/* Input */
+.dream-input {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  margin-top: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(255,95,162,0.3);
+}
+
+/* Floating hearts */
 .heart {
   position: fixed;
   bottom: -20px;
@@ -141,10 +131,7 @@ body {
 }
 
 @keyframes floatUp {
-  to {
-    transform: translateY(-120vh);
-    opacity: 0;
-  }
+  to { transform: translateY(-120vh); opacity: 0; }
 }
 
 /* Confetti */
@@ -184,13 +171,33 @@ body {
   <div class="card hidden" id="card3">
     <h1>My Heart 💗</h1>
     <div class="typed" id="text3"></div>
-    <button class="btn" onclick="nextCard(3)">Final Message ✨</button>
+    <button class="btn" onclick="nextCard(3)">Final ✨</button>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="card hidden" id="card4">
+    <h1 class="glow">I Love You ❤️</h1>
+    <div class="typed" id="text4"></div>
+    <button class="btn" onclick="nextCard(4)">One Question 💕</button>
   </div>
 
   <!-- Final Card -->
-  <div class="card hidden" id="card4">
-    <h1 class="glow">I Love You, Rashi ❤️</h1>
-    <div class="typed" id="text4"></div>
+  <div class="card hidden" id="card5">
+    <h1>
+      One small question before I tell you my name ❤️
+    </h1>
+
+    <p style="font-weight:600;">
+      I think I already know what you want to become in life…  
+      but tell me anyway 😊
+    </p>
+
+    <input type="text" id="dreamInput" class="dream-input" placeholder="Type your answer..." />
+
+    <button class="btn" onclick="checkAnswer()">Submit 💕</button>
+
+    <p id="response" class="typed"></p>
+    <h1 id="myName" class="glow hidden">Sarthak Bhise 💗</h1>
   </div>
 
 </div>
@@ -220,11 +227,13 @@ function nextCard(step) {
   document.getElementById("card" + step).classList.add("hidden");
   const next = document.getElementById("card" + (step + 1));
   next.classList.remove("hidden");
-  typeText("text" + (step + 1), messages["text" + (step + 1)]);
+  if (messages["text" + (step + 1)]) {
+    typeText("text" + (step + 1), messages["text" + (step + 1)]);
+  }
   if (step === 3) startConfetti();
 }
 
-/* Parallax hearts */
+/* Floating hearts */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -238,7 +247,7 @@ setInterval(() => {
 
 /* Confetti */
 function startConfetti() {
-  for (let i = 0; i < 140; i++) {
+  for (let i = 0; i < 120; i++) {
     const c = document.createElement("div");
     c.className = "confetti";
     c.style.left = Math.random() * 100 + "vw";
@@ -248,7 +257,41 @@ function startConfetti() {
     setTimeout(() => c.remove(), 5000);
   }
 }
+
+/* Answer logic */
+let attempts = 0;
+function checkAnswer() {
+  const input = document.getElementById("dreamInput").value.trim().toLowerCase();
+  const response = document.getElementById("response");
+  const name = document.getElementById("myName");
+
+  if (!input) {
+    response.innerText = "Come on… I know you have a dream 😌💗";
+    return;
+  }
+
+  if (input === "doctor") {
+    response.innerText = "That’s right 🩺❤️";
+    name.classList.remove("hidden");
+    document.getElementById("dreamInput").disabled = true;
+    startConfetti();
+    return;
+  }
+
+  attempts++;
+
+  if (attempts === 1) {
+    response.innerText = "Hmm… think again 😄 I know it already 🤍";
+  } else {
+    response.innerText = "I knew it… you want to become a Doctor 🩺❤️";
+    name.classList.remove("hidden");
+    document.getElementById("dreamInput").disabled = true;
+    startConfetti();
+  }
+}
 </script>
 
 </body>
 </html>
+
+
